@@ -3,337 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Cuti - Aeryn Salon</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- jsPDF for PDF Generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        aeryn: {
-                            main: '#9B6BFF',
-                            dark: '#7c54cc',
-                            light: '#bda0ff'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Form Cuti AERYN SALON</title> 
     <style>
         body {
-            background-color: #f3f4f6;
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #9B6BFF 0%, #6366f1 100%);
+        
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background-color: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            font-size: 22px; /* Sedikit dikecilkan agar teks yang panjang muat dengan rapi di layar HP */
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-container {
+            padding: 0 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #fafafa;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #ab47bc;
+            outline: none;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(171, 71, 188, 0.1);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 30px;
+            font-size: 17px;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 40px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(142, 36, 170, 0.3);
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 5px rgba(142, 36, 170, 0.3);
+            background: #7b1fa2;
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+<body>
 
-    <!-- Navbar / Header -->
-    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-white text-purple-600 rounded-full p-2 w-10 h-10 flex items-center justify-center font-bold text-xl shadow-md">
-                    A
-                </div>
-                <div>
-                    <h1 class="text-lg font-bold leading-tight">Aeryn Salon</h1>
-                    <p class="text-xs text-purple-100">Beauty & Elegance</p>
-                </div>
-            </div>
-            <div class="text-sm hidden sm:block">
-                <i class="fab fa-whatsapp mr-1"></i> 0813 1680 1311
-            </div>
+    <div class="app-container">
+        <div class="header">
+            📝 Form Cuti AERYN SALON
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
-            
-            <!-- Form Header -->
-            <div class="bg-gray-50 px-8 py-6 border-b border-gray-100 text-center sm:text-left">
-                <h2 class="text-2xl font-bold text-gray-800">Formulir Pengajuan Cuti</h2>
-                <p class="text-gray-500 mt-1">Silakan lengkapi data di bawah ini untuk mengajukan cuti.</p>
-            </div>
+        <div class="form-container">
+            <form id="formCuti">
+                <div class="form-group">
+                    <label>Nama Lengkap Karyawan</label>
+                    <input type="text" name="nama" required placeholder="Contoh: Siti Aminah">
+                </div>
 
-            <div class="p-8">
-                <form id="leaveForm" class="space-y-6">
-                    
-                    <!-- Section 1: Data Diri -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Karyawan</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <input type="text" id="nama" required 
-                                    class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-aeryn-main focus:border-transparent transition" 
-                                    placeholder="Nama Lengkap">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">ID Karyawan</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                                    <i class="fas fa-id-card"></i>
-                                </span>
-                                <input type="text" id="idKaryawan" required 
-                                    class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-aeryn-main focus:border-transparent transition" 
-                                    placeholder="Contoh: AE-001">
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label>Tanggal Mulai Cuti</label>
+                    <input type="date" name="mulai" required>
+                </div>
 
-                    <!-- Section 2: Tanggal -->
-                    <div class="bg-purple-50 p-5 rounded-xl border border-purple-100">
-                        <h3 class="text-sm font-semibold text-purple-700 mb-4 uppercase tracking-wider">Detail Waktu</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-600 mb-1">Mulai Cuti</label>
-                                <input type="date" id="tglMulai" required 
-                                    class="w-full px-3 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-aeryn-main text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-600 mb-1">Akhir Cuti</label>
-                                <input type="date" id="tglAkhir" required 
-                                    class="w-full px-3 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-aeryn-main text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-600 mb-1">Kembali Kerja</label>
-                                <input type="date" id="tglKembali" required 
-                                    class="w-full px-3 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-aeryn-main text-sm">
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label>Tanggal Selesai Cuti</label>
+                    <input type="date" name="selesai" required>
+                </div>
 
-                    <!-- Section 3: Alasan -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Alasan Cuti</label>
-                        <textarea id="alasan" rows="4" required 
-                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-aeryn-main focus:border-transparent transition" 
-                            placeholder="Jelaskan alasan pengajuan cuti Anda..."></textarea>
-                    </div>
+                <div class="form-group">
+                    <label>Tanggal Masuk Kerja Kembali</label>
+                    <input type="date" name="tanggal_masuk" required>
+                </div>
 
-                    <!-- Action Buttons -->
-                    <div class="pt-4 flex flex-col md:flex-row gap-4">
-                        <button type="button" onclick="generatePDF()" 
-                            class="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                            <i class="fas fa-file-pdf"></i> Download PDF
-                        </button>
-                        
-                        <button type="button" onclick="sendToWhatsapp()" 
-                            class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                            <i class="fab fa-whatsapp text-xl"></i> Kirim ke Admin
-                        </button>
-                    </div>
-                    <p class="text-xs text-center text-gray-400 mt-2 italic">
-                        *Klik "Download PDF" terlebih dahulu untuk arsip pribadi, kemudian "Kirim ke Admin" untuk melapor via WhatsApp.
-                    </p>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label>Alasan Cuti / Keperluan</label>
+                    <textarea name="alasan" rows="4" required placeholder="Tuliskan alasan yang jelas..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit" id="btnKirim">Ajukan Cuti</button>
+            </form>
         </div>
-    </main>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-10 mt-8">
-        <div class="container mx-auto px-4 text-center">
-            <h3 class="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Aeryn Salon</h3>
-            <p class="text-gray-400 mb-6 text-sm max-w-md mx-auto">Melayani perawatan kecantikan terbaik di Depok. Buka setiap hari 09.00 - 19.00 WIB.</p>
-            
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8 text-sm">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-map-marker-alt text-purple-400"></i>
-                    <span>Jl. Limo Raya No.39 Depok</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fab fa-whatsapp text-green-400"></i>
-                    <span>0813 1680 1311</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fab fa-instagram text-pink-400"></i>
-                    <span>@aerynsalon</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fab fa-tiktok text-gray-100"></i>
-                    <span>@aerynsalondepok</span>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 pt-6 text-xs text-gray-500">
-                &copy; 2026 Aeryn Salon Management System. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
-
-    <!-- Logic Script -->
     <script>
-        // Formatting Date helper
-        function formatDate(dateString) {
-            if(!dateString) return "-";
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('id-ID', options);
-        }
+        // URL Apps Script Anda
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxobm2aX1rrbJvf_lorFjd2mL1uV5qi_pDFXHMbCjMGQ8qhk2GhvZM9JkIwdFmjcuK-/exec';
+        const form = document.getElementById('formCuti');
+        const btnKirim = document.getElementById('btnKirim');
 
-        // Validate Form
-        function validateForm() {
-            const nama = document.getElementById('nama').value;
-            const id = document.getElementById('idKaryawan').value;
-            const start = document.getElementById('tglMulai').value;
-            const end = document.getElementById('tglAkhir').value;
-            const back = document.getElementById('tglKembali').value;
-            const reason = document.getElementById('alasan').value;
-
-            if (!nama || !id || !start || !end || !back || !reason) {
-                alert("Mohon lengkapi semua kolom formulir.");
-                return false;
-            }
-            return { nama, id, start, end, back, reason };
-        }
-
-        // Generate PDF Function
-        function generatePDF() {
-            const data = validateForm();
-            if (!data) return;
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            // --- Styling Variables ---
-            const purple = "#9B6BFF";
-            const dark = "#333333";
-            const gray = "#777777";
-            const pageWidth = doc.internal.pageSize.getWidth();
-
-            // --- Header ---
-            // Background Header
-            doc.setFillColor(155, 107, 255); // Aeryn Purple
-            doc.rect(0, 0, pageWidth, 40, 'F');
-
-            // Title
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(24);
-            doc.setFont("helvetica", "bold");
-            doc.text("AERYN SALON", pageWidth / 2, 18, { align: "center" });
+        form.addEventListener('submit', e => {
+            e.preventDefault(); 
             
-            doc.setFontSize(10);
-            doc.setFont("helvetica", "normal");
-            doc.text("Jl. Limo Raya No.39 Depok | WA: 0813 1680 1311", pageWidth / 2, 26, { align: "center" });
+            btnKirim.innerText = "Mengirim...";
+            btnKirim.style.background = "#ccc"; 
+            btnKirim.disabled = true;
 
-            // --- Document Title ---
-            doc.setTextColor(dark);
-            doc.setFontSize(16);
-            doc.setFont("helvetica", "bold");
-            doc.text("FORMULIR PENGAJUAN CUTI", pageWidth / 2, 60, { align: "center" });
-            
-            doc.setLineWidth(0.5);
-            doc.setDrawColor(200, 200, 200);
-            doc.line(20, 65, pageWidth - 20, 65);
-
-            // --- Content ---
-            let y = 80;
-            const xLabel = 25;
-            const xValue = 80;
-
-            doc.setFontSize(11);
-
-            function addField(label, value) {
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(dark);
-                doc.text(label, xLabel, y);
-                
-                doc.setFont("helvetica", "normal");
-                doc.setTextColor(50, 50, 50);
-                doc.text(":  " + value, xValue, y);
-                y += 12;
-            }
-
-            addField("Nama Karyawan", data.nama);
-            addField("ID Karyawan", data.id);
-            y += 5; // Extra spacing
-            addField("Tanggal Mulai Cuti", formatDate(data.start));
-            addField("Tanggal Akhir Cuti", formatDate(data.end));
-            addField("Tanggal Kembali Kerja", formatDate(data.back));
-            y += 5; // Extra spacing
-            
-            // Reason (Multi-line)
-            doc.setFont("helvetica", "bold");
-            doc.setTextColor(dark);
-            doc.text("Alasan Cuti", xLabel, y);
-            y += 7;
-            doc.setFont("helvetica", "normal");
-            doc.setTextColor(50, 50, 50);
-            
-            // Text splitting for long reasons
-            const splitReason = doc.splitTextToSize(data.reason, pageWidth - 50);
-            doc.text(splitReason, xLabel, y);
-            
-            y += (splitReason.length * 7) + 20;
-
-            // --- Signature Area ---
-            if (y > 220) { doc.addPage(); y = 40; } // New page if logic goes too low
-
-            const signY = y;
-            
-            doc.setFont("helvetica", "normal");
-            doc.setTextColor(dark);
-            
-            // Left Signature (Employee)
-            doc.text("Depok, " + new Date().toLocaleDateString('id-ID'), 40, signY, { align: "center" });
-            doc.text("Pemohon,", 40, signY + 6, { align: "center" });
-            doc.text("( " + data.nama + " )", 40, signY + 35, { align: "center" });
-
-            // Right Signature (Approval)
-            doc.text("Menyetujui,", pageWidth - 50, signY + 6, { align: "center" });
-            doc.text("( Management )", pageWidth - 50, signY + 35, { align: "center" });
-
-            // --- Footer ---
-            const pageHeight = doc.internal.pageSize.getHeight();
-            doc.setFontSize(8);
-            doc.setTextColor(150, 150, 150);
-            doc.text("Dokumen ini dibuat secara digital oleh Sistem Aeryn Salon.", pageWidth / 2, pageHeight - 10, { align: "center" });
-
-            // Save PDF
-            doc.save(`Cuti_${data.nama}_${data.id}.pdf`);
-        }
-
-        // Send to WhatsApp
-        function sendToWhatsapp() {
-            const data = validateForm();
-            if (!data) return;
-
-            // Construct Message
-            let text = `*FORMULIR PENGAJUAN CUTI - AERYN SALON* 💇‍♀️\n\n`;
-            text += `*Nama:* ${data.nama}\n`;
-            text += `*ID:* ${data.id}\n`;
-            text += `*Mulai:* ${formatDate(data.start)}\n`;
-            text += `*Berakhir:* ${formatDate(data.end)}\n`;
-            text += `*Masuk Kembali:* ${formatDate(data.back)}\n`;
-            text += `--------------------------------\n`;
-            text += `*Alasan:*\n${data.reason}\n`;
-            text += `\n_Mohon persetujuannya. Terima kasih._`;
-
-            // WhatsApp API URL
-            const phoneNumber = "6281316801311"; // Admin Number
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
-
-            // Open in new tab
-            window.open(url, '_blank');
-        }
+            fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+                .then(response => {
+                    alert("✅ Yey! Pengajuan cuti berhasil dikirim ke Manajemen.");
+                    form.reset(); 
+                    btnKirim.innerText = "Ajukan Cuti"; 
+                    btnKirim.style.background = "linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%)";
+                    btnKirim.disabled = false;
+                })
+                .catch(error => {
+                    alert("❌ Gagal mengirim. Pastikan internet Anda aktif!");
+                    console.error('Error!', error.message);
+                    btnKirim.innerText = "Coba Lagi";
+                    btnKirim.style.background = "linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%)";
+                    btnKirim.disabled = false;
+                });
+        });
     </script>
+
 </body>
 </html>
